@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="book-title">Memuat… – Libra Library</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    #flipbook { width:100%; height:100vh; background:#0F0F12; }
+    .page { background:white; box-shadow:0 0 20px rgba(0,0,0,0.6); }
+  </style>
+</head>
+<body>
+  <div class="back-btn"><a href="/">← Kembali</a></div>
+  <div id="flipbook"><div class="loader">Memuat buku…</div></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const pdfUrl = urlParams.get('pdf');
+    const title = urlParams.get('title') || 'Libra Library';
+    document.getElementById('book-title').innerText = title + ' – Libra Library';
+
+    if (!pdfUrl) {
+      document.body.innerHTML = "<h1 style='color:#D4AF37;text-align:center;margin-top:50px'>Buku tidak ditemukan</h1>";
+    }
+
+    // Render PDF → Turn.js (super realistis)
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+      const flipbook = document.getElementById('flipbook');
+      flipbook.innerHTML = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const pageDiv = document.createElement('div');
+        const canvas = document.createElement('canvas');
+        pageDiv.appendChild(canvas);
+        flipbook.appendChild(pageDiv);
+
+        pdf.getPage(i).then(page => {
+          const viewport = page.getViewport({scale: 1.5});
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          page.render({canvasContext: canvas.getContext('2d'), viewport});
+        });
+      }
+      $("#flipbook").turn({
+        gradients: true,
+        acceleration: true,
+        shadows: true,
+        autoCenter: true
+      });
+    });
+  </script>
+</body>
+</html>
