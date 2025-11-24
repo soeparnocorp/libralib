@@ -1,0 +1,7 @@
+name = "libra-library-upload"
+main = "upload-worker.js"
+compatibility_date = "2025-11-25"
+
+[[r2_buckets]]
+binding = "LIBRARY_BUCKET"
+bucket_name = "libra-books"
