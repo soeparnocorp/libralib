@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Login – Libra Library</title>
+<link rel="stylesheet" href="assets/css/style.css"></head>
+<body>
+<div style="text-align:center;margin-top:15%">
+  <h1 style="color:#D4AF37">Libra Library</h1>
+  <input type="email" id="email" placeholder="Email" required style="display:block;margin:20px auto;padding:12px;width:300px;border-radius:8px;border:none;"><br>
+  <input type="password" id="pass" placeholder="Password" required style="display:block;margin:20px auto;padding:12px;width:300px;border-radius:8px;border:none;"><br>
+  <button onclick="login()" style="padding:12px 40px;background:#D4AF37;color:black;border:none;cursor:pointer;border-radius:8px;font-weight:bold">Login</button>
+  <p id="msg" style="margin-top:20px;color:#D4AF37"></p>
+</div>
+<script>
+function login() {
+  const email = document.getElementById('email').value.trim();
+  if (!email) return document.getElementById('msg').textContent = "Email wajib diisi";
+  localStorage.setItem('user', email);
+  location.href = 'dashboard.html';
+}
+</script>
+</body></html>
