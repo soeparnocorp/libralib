@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head><title>Dashboard – Libra Library</title>
+<link rel="stylesheet" href="assets/css/style.css"></head>
+<body>
+<div style="padding:40px;max-width:800px;margin:auto">
+  <h1 style="color:#D4AF37">Dashboard Member</h1>
+  <p>Selamat datang, <b id="user"></b> | <a href="login.html" onclick="localStorage.clear()">Logout</a></p>
+  <hr style="border-color:#444;margin:30px 0">
+  <h2>Upload Buku Pribadi</h2>
+  <input type="file" id="pdf" accept=".pdf" style="margin:20px 0"><br>
+  <button onclick="upload()" style="padding:12px 30px;background:#D4AF37;color:black;border:none;cursor:pointer;border-radius:8px;font-weight:bold">Upload ke R2</button>
+  <p id="status" style="margin-top:20px;font-weight:bold"></p>
+</div>
+<script src="assets/js/dashboard.js"></script>
+</body></html>
